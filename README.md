@@ -1,0 +1,4 @@
+cccgo
+=====
+
+Cross-compile CGO
