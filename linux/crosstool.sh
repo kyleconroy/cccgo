@@ -28,7 +28,7 @@ if [ ! -e /mnt/xtool/crosstool-ng/ct-ng ]; then
         popd
 fi
 
-function create_toolchain {
+function make_toolchain {
 if [ ! -e $HOME/x-tools/$1 ]; then
         pushd /mnt/xtool/crosstool-ng
         ./ct-ng $1
@@ -38,7 +38,7 @@ if [ ! -e $HOME/x-tools/$1 ]; then
 fi
 } 
 
-function package_toolchain {
+function pack_toolchain {
 if [ ! -e dist/x86_64-unknown-linux-gnu_to_$1.tar.gz ]; then
         pushd $HOME/x-tools
         tar -cvzf $1.tar.gz $1
