@@ -20,4 +20,4 @@ apt-get -y install \
 mkdir -p /mnt/xtool
 chown ubuntu:ubuntu /mnt/xtool
 
-su -c ./build-crosstool.sh -s /bin/sh ubuntu
+su -c ./crosstool.sh -s /bin/sh ubuntu

@@ -10,6 +10,7 @@ if [ ! -e  $HOME/MacOSX10.6.sdk ]; then
         wget https://github.com/kyleconroy/cccgo/releases/download/vSDK10.6/MacOSX10.6.sdk.zip
         unzip -q MacOSX10.6.sdk.zip
         rm -f MacOSX10.6.sdk.zip
+        rm -f __MACOSX
         popd
 fi
 
