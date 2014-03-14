@@ -56,5 +56,9 @@ pack_toolchain x86_64-apple-darwin10
 # pack_toolchain i686-apple-darwin10
 
 # Create the Windows x86-64 toolchain
-# make_toolchain x86_64-unknown-mingw32
-# pack_toolchain x86_64-unknown-mingw32
+make_toolchain x86_64-unknown-mingw32
+pack_toolchain x86_64-unknown-mingw32
+
+# Create the Linux x86-64 GNU toolchain
+make_toolchain x86_64-unknown-linux-gnu
+pack_toolchain x86_64-unknown-linux-gnu
