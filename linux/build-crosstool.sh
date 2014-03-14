@@ -38,7 +38,7 @@ fi
 # FIXME Creae a tarball
 if [ ! -e dist/host_linux_64_target_darwin_64.tar.gz ]; then
         pushd $HOME/x-tools
-        tar -cvzf x86_64-apple-darwin10.tar.gz x86_64-apple-darwin10.tar.gz
+        tar -cvzf x86_64-apple-darwin10.tar.gz x86_64-apple-darwin10
         popd
         mv $HOME/x-tools/x86_64-apple-darwin10.tar.gz dist/host_linux_64_target_darwin_64.tar.gz
 fi
