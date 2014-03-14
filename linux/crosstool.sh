@@ -3,14 +3,13 @@ set -e
 set -x
 
 mkdir -p sdks
-
+mkdir -p $HOME/src
 
 if [ ! -e  $HOME/MacOSX10.6.sdk ]; then
         pushd $HOME
         wget https://github.com/kyleconroy/cccgo/releases/download/vSDK10.6/MacOSX10.6.sdk.zip
         unzip -q MacOSX10.6.sdk.zip
         rm -f MacOSX10.6.sdk.zip
-        rm -f __MACOSX
         popd
 fi
 
