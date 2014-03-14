@@ -2,6 +2,7 @@
 set -e
 set -x
 
+# FIXME Add support for custom USER
 export PATH="$PATH:/usr/local/go/bin:/usr/local/gopath/bin"
 export GOPATH="/usr/local/gopath"
 
@@ -20,13 +21,13 @@ apt-get -y install \
         gcc-arm-linux-gnueabihf gcc-mingw32 gcc-mingw-w64
 
 # cross tools
-
 if [ ! -e /usr/local/go ]; then
         pushd /usr/local
         hg clone -u release https://code.google.com/p/go
         popd
 fi
 
+# FIXME: This patch actually doesn't work
 if [ ! -e /usr/local/go/.patched ]; then
         pushd /usr/local/go
         curl https://gist.github.com/steeve/6905542/raw/cross_compile_goos.patch | patch -p1
@@ -46,31 +47,15 @@ if [ ! -e /usr/local/go/pkg/tool/plan9_386 ]; then
         gox -build-toolchain
 fi
 
-# FIXME: Move this to GitHub
-if [ ! -e  $HOME/MacOSX10.6.sdk ]; then
-        pushd $HOME
-        wget https://github.com/kyleconroy/cccgo/releases/download/vSDK10.6/MacOSX10.6.sdk.zip
-        unzip -q MacOSX10.6.sdk.zip
-        rm -f MacOSX10.6.sdk.zip
-        popd
+if [ ! -e /etc/profile.d/go.sh ]; then
+        echo 'export PATH="$PATH::/usr/local/go/bin/"' > /etc/profile.d/go.sh
 fi
 
-if [ ! -e $HOME/crosstool-ng ]; then
-        pushd $HOME
-        git clone https://github.com/diorcety/crosstool-ng
-        popd
+if [ ! -e /etc/profile.d/xtool.sh ]; then
+        echo 'export PATH="$PATH:/home/ubuntu/x-tools/x86_64-apple-darwin10/bin/"' > /etc/profile.d/xtool.sh
 fi
 
-if [ ! -e crosstool-ng/ct-ng ]; then
-        pushd $HOME/crosstool-ng
-        ./bootstrap
-        ./configure --enable-local
-        make
-        popd
-fi
+mkdir -p /mnt/xtool
+chown ubuntu:ubuntu /mnt/xtool
 
-# Create the OS X toolchain
-pushd $HOME/crosstool-ng
-./ct-ng x86_64-apple-darwin10
-./ct-ng build
-popd
+su -c /home/ubuntu/build-crosstool-ng.sh -s /bin/sh ubuntu
