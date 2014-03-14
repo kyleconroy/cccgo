@@ -4,6 +4,7 @@ set -x
 
 mkdir -p sdks
 
+
 if [ ! -e  $HOME/MacOSX10.6.sdk ]; then
         pushd $HOME
         wget https://github.com/kyleconroy/cccgo/releases/download/vSDK10.6/MacOSX10.6.sdk.zip
@@ -26,19 +27,34 @@ if [ ! -e /mnt/xtool/crosstool-ng/ct-ng ]; then
         popd
 fi
 
-# Create the OS X 64bit toolchain
-if [ ! -e $HOME/x-tools/x86_64-apple-darwin10 ]; then
+function create_toolchain {
+if [ ! -e $HOME/x-tools/$1 ]; then
         pushd /mnt/xtool/crosstool-ng
-        ./ct-ng x86_64-apple-darwin10
+        ./ct-ng $1
         ./ct-ng build
         ./ct-ng distclean
         popd
 fi
+} 
 
-# FIXME Creae a tarball
-if [ ! -e dist/host_linux_64_target_darwin_64.tar.gz ]; then
+function package_toolchain {
+if [ ! -e dist/x86_64-unknown-linux-gnu_to_$1.tar.gz ]; then
         pushd $HOME/x-tools
-        tar -cvzf x86_64-apple-darwin10.tar.gz x86_64-apple-darwin10
+        tar -cvzf $1.tar.gz $1
         popd
-        mv $HOME/x-tools/x86_64-apple-darwin10.tar.gz dist/host_linux_64_target_darwin_64.tar.gz
+        mv $HOME/x-tools/$1.tar.gz dist/x86_64-unknown-linux-gnu_to_$1.tar.gz
+
 fi
+} 
+
+# Create the OS X x86_64 toolchain
+make_toolchain x86_64-apple-darwin10
+pack_toolchain x86_64-apple-darwin10
+
+# Create the OS X i686 toolchain
+# make_toolchain i686-apple-darwin10
+# pack_toolchain i686-apple-darwin10
+
+# Create the Windows x86-64 toolchain
+# make_toolchain x86_64-unknown-mingw32
+# pack_toolchain x86_64-unknown-mingw32
