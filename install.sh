@@ -16,7 +16,7 @@ fi
 
 apt-get -y install \
         libc6-dev libc6-dev-i386 curl make mercurial git unzip \
-        autoconf gperf bison flex texinfo gawk libtool libncurses5-dev \
+        autoconf gperf bison flex texinfo gawk libtool libncurses5-dev g++ \
         gcc-arm-linux-gnueabihf gcc-mingw32 gcc-mingw-w64
 
 # cross tools
@@ -49,7 +49,7 @@ fi
 # FIXME: Move this to GitHub
 if [ ! -e  $HOME/MacOSX10.6.sdk ]; then
         pushd $HOME
-        wget http://jamesgeorge.org/uploads/MacOSX10.6.sdk.zip 
+        wget https://github.com/kyleconroy/cccgo/releases/download/vSDK10.6/MacOSX10.6.sdk.zip
         unzip -q MacOSX10.6.sdk.zip
         rm -f MacOSX10.6.sdk.zip
         popd
