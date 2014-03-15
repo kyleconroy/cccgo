@@ -15,7 +15,8 @@ fi
 # Install the needed dependencies
 apt-get -y install \
         libc6-dev libc6-dev-i386 curl make mercurial git unzip \
-        autoconf gperf bison flex texinfo gawk libtool libncurses5-dev g++
+        autoconf gperf bison flex texinfo gawk libtool libncurses5-dev \
+        g++ expat
 
 mkdir -p /mnt/xtool
 chown ubuntu:ubuntu /mnt/xtool
